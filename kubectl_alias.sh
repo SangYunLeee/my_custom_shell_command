@@ -1,8 +1,11 @@
 # Kubectl
 
+source <(kubectl completion zsh)
+
 export KUBECONFIG=$(find ~/.kube -type f -name '*config' | tr '\n' ':')
 
 alias k="kubectl"
+alias kk="kubectl krew"
 
 alias ka='kubectl apply --recursive -f'
 alias kgp='kubectl get pods -o wide'
@@ -18,4 +21,7 @@ alias kgpaw='kubectl get pods -o wide -A -w'
 alias krn='kubectl run nginx --image=nginx --restart=Never'
 alias kcn='kubectl create deployment nginx --image=nginx'
 alias krb='kubectl run busybox --image=busybox --restart=Never -- sleep 1d'
+
+# KREW
+export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 
