@@ -3,7 +3,6 @@
 source <(kubectl completion zsh)
 
 export KUBECONFIG=$(find ~/.kube -type f -name '*config' | tr '\n' ':')
-
 alias k="kubectl"
 alias kk="kubectl krew"
 
@@ -24,4 +23,4 @@ alias krb='kubectl run busybox --image=busybox --restart=Never -- sleep 1d'
 
 # KREW
 export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
-
+PROMPT='$(kube_ps1)'$PROMPT
