@@ -1,3 +1,14 @@
+# Devops
+alias awkp="awk -v OFS='\t'"
+alias dk="docker"
+alias dkc='docker compose'
+alias cl="clear"
+alias h="helm"
+alias t="terraform"
+alias dkmk="minikube"
+
+export ty='-auto-approve'
+
 # Kubectl
 
 source <(kubectl completion zsh)
@@ -21,6 +32,10 @@ alias krn='kubectl run nginx --image=nginx --restart=Never'
 alias kcn='kubectl create deployment nginx --image=nginx'
 alias krb='kubectl run busybox --image=busybox --restart=Never -- sleep 1d'
 
+export do="--dry-run=client -o yaml"
+export now="--force --grace-period 0"
+
 # KREW
 export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 PROMPT='$(kube_ps1)'$PROMPT
+
