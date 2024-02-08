@@ -32,8 +32,33 @@ alias krn='kubectl run nginx --image=nginx --restart=Never'
 alias kcn='kubectl create deployment nginx --image=nginx'
 alias krb='kubectl run busybox --image=busybox --restart=Never -- sleep 1d'
 
-export do="--dry-run=client -o yaml"
-export now="--force --grace-period 0"
+function ksnapshot() {
+  local result
+  result=$(k get deployments.apps -o yaml \
+    | k neat \
+    | yq e '
+        del(
+          .items[].apiVersion,
+          .items[].metadata.resourceVersion,
+          .items[].spec.progressDeadlineSeconds,
+          .items[].spec.revisionHistoryLimit,
+          .items[].spec.strategy,
+          .items[].spec.template.metadata.creationTimestamp,
+          .items[].spec.template.spec.containers[].resources,
+          .items[].spec.template.spec.containers[].imagePullPolicy,
+          .items[].spec.template.spec.containers[].terminationMessagePath,
+          .items[].spec.template.spec.containers[].terminationMessagePolicy,
+          .items[].spec.template.spec.dnsPolicy,
+          .items[].spec.template.spec.restartPolicy,
+          .items[].spec.template.spec.schedulerName,
+          .items[].spec.template.spec.terminationGracePeriodSeconds
+        )
+      ')
+  echo "$result"
+}
+
+export do=(--dry-run=client -oyaml)
+export now=(--force --grace-period 0)
 
 # KREW
 export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"

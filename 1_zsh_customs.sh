@@ -34,3 +34,6 @@ HISTSIZE=1000
 HISTFILESIZE=200000
 
 export LESS="-XFR"
+# argocd
+source <(argocd completion zsh)
+compdef _argocd argocd
